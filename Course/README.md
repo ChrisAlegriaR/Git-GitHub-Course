@@ -1045,7 +1045,7 @@ Más abajo, separado también por una línea, se encuentra el listado de las **r
 - Código o hash del commit más reciente  
 - Mensaje del último commit
 
-Desde aquí también se puede seleccionar cualquier rama remota para **cambiarse a ella** y trabajar sobre esa versión del código.
+Desde aquí también se puede seleccionar cualquier rama remota para **cambiarse a ella** y trabajar sobre esa versión del código. Ademas de que al lado derecho de dicho boton se encuentra un boton con simbolo de sincronización, el cual si se preciona esta rama sera publicada en el reposotorio remoto si es que existe una conexion al mismo.
 
 <br>
 <p align="center">
