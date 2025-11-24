@@ -1151,18 +1151,18 @@ Además:
 </p>
 
 # 🛰️ Git Remote / Origin
-El concepto de **Git Remote** (y específicamente **origin**) es uno de los pilares fundamentales dentro del flujo de trabajo en Git.  
-Este apartado se refiere a la **conexión entre un repositorio local** —el que está en nuestra computadora— y un **repositorio remoto**, que normalmente se aloja en plataformas como **GitHub**, **GitLab** o **Bitbucket**. Para trabajar con repositorios remotos es necesario **tener una cuenta** en la plataforma que usaremos; en este caso, GitHub.
-
----
+El tema de **Git Remote**, y en particular el concepto de **origin**, es uno de los más fundamentales al trabajar con Git.  
+Este apartado se refiere a la **conexión entre nuestro repositorio local** (el que vive en nuestra computadora) y un **repositorio remoto**, el cual normalmente se encuentra alojado en plataformas como **GitHub**, **GitLab** o **Bitbucket**. Gracias a esta conexión, Git permite **subir, descargar, sincronizar y compartir** el proyecto con otros desarrolladores o simplemente almacenarlo en la nube como respaldo. Para comenzar a trabajar con repositorios remotos, lo primero que se necesita es **tener una cuenta** en la plataforma elegida, en este caso **GitHub**, que es la más popular actualmente.
 
 ## 📄 Página principal de GitHub
+Una vez iniciada la sesión en GitHub, la pantalla inicial se divide en varias secciones importantes:
 
-Una vez iniciada la sesión en GitHub, la página principal muestra distintos bloques de información:
+- **Parte derecha:** muestra un historial de nuestras actividades recientes relacionadas con Git—commits, creación de ramas, repositorios creados, forks, pull requests, etc.—siempre y cuando ya hayamos trabajado previamente con repositorios remotos.
 
-- **Parte derecha:** un historial de nuestras actividades recientes, como commits, ramas creadas, PRs, etc. (solo aparece si ya hemos trabajado con repositorios remotos).  
-- **Parte central:** un *feed* con noticias, proyectos o actividades de las personas y organizaciones que seguimos.  
-- **Parte izquierda:** un listado de los repositorios que más hemos utilizado recientemente, además del botón verde **"New"**, que permite crear un nuevo repositorio remoto.
+- **Parte central:** se encuentra un *feed* donde aparecen las actividades recientes de las personas, organizaciones o proyectos que seguimos, además de noticias o recomendaciones de GitHub.
+
+- **Parte izquierda:** aparece un listado con los repositorios en los que más hemos trabajado recientemente.  
+  En este mismo bloque también se encuentra el botón **verde "New"**, que permite crear un nuevo repositorio remoto.
 
 <br>
 <p align="center">
@@ -1170,45 +1170,45 @@ Una vez iniciada la sesión en GitHub, la página principal muestra distintos bl
 </p>
 
 ## ✨ Creación de un nuevo repositorio
-Al presionar el botón **“New”**, GitHub nos lleva a la página de creación del repositorio remoto.  
-En la parte superior aparece un texto informativo traducido a español:
+Tras presionar el botón **New**, GitHub nos lleva a la página donde configuraremos nuestro repositorio remoto.  
+La parte superior de esta página incluye un pequeño texto informativo que explica:
 
-> **Crear un nuevo repositorio  
+> *(Crear un nuevo repositorio.  
 > Los repositorios contienen los archivos de un proyecto y su historial de versiones.  
 > ¿Tienes un proyecto en otro lugar? Importa un repositorio.  
-> Los campos obligatorios están marcados con un asterisco (*).**
+> Los campos requeridos están marcados con un asterisco.)*
 
-A la parte inferior se muestra una barra vertical con los pasos para la creación.  
-En el **Paso 1** se encuentran los datos principales del repositorio:
+A la izquierda podemos ver una columna vertical con dos pasos numerados.
 
-- Seleccionar al propietario (usuario u organización).  
-- Elegir el **nombre del repositorio**, que debe ser corto, claro y cumplir con las reglas de GitHub.  
-- Añadir una **descripción** opcional explicando de qué trata el proyecto.
+### 🔵 **Paso 1: Información principal del repositorio**
+Aquí se ingresan los datos más importantes:
+- El **propietario** (tú o alguna organización).
+- El **nombre del repositorio**, el cual GitHub recomienda que sea corto, descriptivo y cumpla con ciertas reglas.
+- Una **descripción opcional**, donde puede añadirse información general del proyecto.
 
 <br>
 <p align="center">
 	  <img src="assets/images/git_remote_origin/img_2.png" width="200"></img>
 </p>
 
-## 🔧 Configuraciones avanzadas
-En el **Paso 2**, GitHub muestra configuraciones adicionales para complementar el repositorio:
+## 🔧 Paso 2: Configuraciones avanzadas
+En la segunda sección se encuentran opciones adicionales que pueden mejorar o complementar la configuración del repositorio:
 
-### 🔐 Visibilidad  
-Se puede elegir entre:
+### 🔐 **Visibilidad**
+Se puede elegir que el repositorio sea:
+- **Público:** totalmente accesible para cualquier persona en Internet.
+- **Privado:** únicamente accesible por el propietario y los colaboradores autorizados.
 
-- **Público:** cualquier persona puede ver el repositorio.  
-- **Privado:** solo el dueño (y quienes él autorice) pueden acceder.
+### 📄 **Agregar un README**
+GitHub permite que el repositorio se cree con un archivo **README.md** inicial.  
+Este archivo explica de qué trata el proyecto y aparece automáticamente en la página principal del repositorio.
 
-### 📄 Añadir un README  
-Podemos activar una opción para que GitHub genere un archivo **README.md**, donde generalmente se describe el proyecto.  
-Este archivo se mostrará automáticamente en la página principal del repositorio.
+### 🚫 **Agregar un .gitignore**
+Aquí se puede elegir una plantilla específica de `.gitignore` según el tipo de proyecto (Node.js, Python, Android, Web, etc.).  
+El `.gitignore` permite excluir archivos o carpetas que **no deben subirse al repositorio**, como módulos, cachés o archivos personales.
 
-### 🚫 Añadir un .gitignore  
-Esta opción permite agregar un archivo `.gitignore` basado en una plantilla para distintos tipos de proyectos (Android, Node.js, Web, Python, etc.).  
-Su función es evitar que ciertos archivos o carpetas se suban al repositorio remoto.
-
-### 📝 Licencia  
-Aquí podemos seleccionar una licencia para el proyecto, lo cual es importante si el código será público.
+### 📜 **Elegir una licencia**
+Opcionalmente se puede agregar una licencia al proyecto para definir los permisos de uso, distribución y modificación del código.
 
 <br>
 <p align="center">
@@ -1216,14 +1216,23 @@ Aquí podemos seleccionar una licencia para el proyecto, lo cual es importante s
 </p>
 
 ## 📂 Repositorio creado
-Una vez completado el formulario y creado el repositorio, GitHub nos dirige directamente a la página del nuevo repositorio remoto.  
-Esta página inicialmente estará vacía, pero mostrará:
+Una vez finalizado el formulario y creado el repositorio, GitHub nos redirige a la página principal del nuevo repositorio remoto. Aquí encontraremos:
 
-- Opciones para agregar **colaboradores**.  
-- Opciones para añadir archivos como README o `.gitignore` si no se generaron antes.  
-- Y más abajo, instrucciones detalladas para **conectar nuestro proyecto local** con este repositorio remoto usando Git.
+- Opciones para **agregar colaboradores** al proyecto.  
+- Posibilidad de añadir un **README**, un **.gitignore** o archivos iniciales si no se añadieron durante la creación.
+- Y lo más importante:  
+  **instrucciones claras y específicas para conectar nuestro repositorio local con este repositorio remoto.**
+
+Estas instrucciones incluyen:
+- El comando para agregar el origen remoto:  
+  `git remote add origin <url>`
+- El comando para el primer push:  
+  `git push -u origin main`
+- Alternativas si ya existe un repositorio local con historial previo.
 
 <br>
 <p align="center">
 	  <img src="assets/images/git_remote_origin/img_4.png" width="200"></img>
 </p>
+
+## 🌐 Gi Remote
