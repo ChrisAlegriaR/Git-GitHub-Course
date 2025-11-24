@@ -1235,4 +1235,148 @@ Estas instrucciones incluyen:
 	  <img src="assets/images/git_remote_origin/img_4.png" width="200"></img>
 </p>
 
-## 🌐 Gi Remote
+## 🌐 Git Remote
+El comando `git remote` permite **vincular** (o gestionar) repositorios remotos asociados al repositorio local. Para conectar un repositorio local con su remoto (por ejemplo en GitHub) se usa la forma: `git remote add origin <url-del-repositorio>`. Donde a continuación se explica qué significa de cada parte de dicho comando:
+
+- **`git remote`**: Indica que se va a trabajar con **remotos** (orígenes externos). Es el subcomando que agrupa acciones relacionadas con repositorios remotos (listar, añadir, renombrar, eliminar, etc.).
+
+- **`add`**:  Es la acción que **añade** un nuevo remoto a la configuración del repositorio local. Con `add` se está registrando una nueva referencia hacia un repositorio en la nube.
+
+- **`origin`**: Es el **nombre (alias)** que se le asigna al remoto. Por convención, `origin` es el nombre por defecto que se usa para referirse al repositorio remotos principal, pero se puede usar cualquier nombre (por ejemplo `upstream`, `github`, `prod`, etc.). `origin` solo es un identificador corto —internamente apunta a una URL—.
+
+- **`<url-del-repositorio>`**:  
+  Es la **URL** que proporciona la plataforma remota (HTTPS o SSH) que apunta al repositorio en GitHub/GitLab/Bitbucket. Ejemplos:  
+  - HTTPS: `https://github.com/usuario/nombre-repo.git`  
+  - SSH: `git@github.com:usuario/nombre-repo.git`
+
+
+### ¿Para qué sirve `git remote`? (explicado punto por punto)
+- **Vincular tu repo local con uno remoto:** Al añadir un remoto (`git remote add origin <url>`) se guarda en la configuración del proyecto la **dirección** a la que se le podrá enviar (`push`) o desde la que se podrá traer (`fetch`/`pull`) código. Es como guardar la dirección de un servidor: **sin esa dirección, Git no sabe a dónde enviar ni de dónde traer cambios**.
+
+- **Consultar qué remotos tienes conectados:** Con `git remote -v` se muestran los remotos registrados y sus URLs. Esto sirve para **verificar** a qué repositorios apunta el proyecto (por ejemplo `origin` → GitHub, `upstream` → repo original de donde se hizo fork). Es útil para saber exactamente dónde se harán `push` o `fetch`.
+
+- **Cambiar la URL del remoto:** Si la URL del remoto cambia (por ejemplo migras de HTTPS a SSH, o el repositorio se mueve), se puede **actualizar** sin perder el resto de la configuración. Se puede usar `git remote set-url origin <nueva-url>` o renombrarlo/volver a añadirlo. Esto mantiene las referencias intactas sin tener que reconfigurar todo.
+
+- **Eliminar un remoto:** Si ya no se necesita un remoto (por ejemplo un repo obsoleto o mal configurado), se puede quitar con `git remote remove <nombre>`. Esto borra esa entrada de la configuración local; **no borra el repositorio remoto** en la plataforma, solo elimina la referencia local.
+
+- **Gestionar múltiples remotos si tu proyecto lo necesita:** Un proyecto puede tener varios remotos (por ejemplo `origin` para tu fork y `upstream` para el repo original). `git remote` facilita:  
+  - **añadir** varios remotos,  
+  - **nombrarlos** para diferenciarlos (`origin`, `upstream`, `staging`, `prod`),  
+  - y realizar operaciones dirigidas a uno u otro (`git push origin main`, `git fetch upstream`).  
+  Esto es clave en flujos como forks, despliegues o integración entre varios servidores.
+
+## 🌍 Proyecto en remoto
+Una vez que se vinculó el proyecto local con el repositorio remoto (`git remote add origin <url>`) y se realizó el **primer push**, GitHub mostrará el repositorio con todos los archivos del proyecto. La vista principal del repositorio se verá algo así:
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_5.png" width="300"></img>
+</p>
+
+En esta interfaz se encuentran varias herramientas e información clave para **visualizar, administrar y compartir** el proyecto.
+
+
+### 🏷️ Nombre del repositorio & visibilidad
+En la **parte superior izquierda** aparece el **nombre del repositorio** y un indicador de **visibilidad**:
+
+- **🔓 Público** → cualquiera puede ver el repositorio.  
+- **🔒 Privado** → solo el propietario y los colaboradores autorizados pueden acceder.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_6.png" width="300"></img>
+</p>
+
+### ⭐ Controles principales: Pin, Views, Fork y Star
+En la **parte superior derecha** están los controles rápidos:
+
+- **📌 Pin** → fijar el repositorio en el perfil para destacarlo.  
+- **👀 Views** → número de vistas del repositorio.  
+- **🍴 Fork** → crear una copia del repositorio (útil para organización/forks).  
+- **⭐ Star** → marcar como favorito.
+
+Estos botones ayudan a gestionar la visibilidad y la interacción con la comunidad.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_7.png" width="300"></img>
+</p>
+
+
+### 🌿 Ramas y Tags (esquina izquierda)
+A la izquierda se muestra la **rama activa** y controles relativos a ramas y tags:
+
+- **Rama actual** → indica qué rama se está visualizando.  
+- **Contador de ramas** → al pulsarlo despliega la lista completa de ramas.  
+- **Tags** → acceso a versiones marcadas del proyecto.
+
+Esto facilita navegar entre versiones o revisar ramas específicas.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_8.png" width="300"></img>
+</p>
+
+
+### 🔎 Herramientas del encabezado: Buscar, Crear archivo y Clonar
+En la parte superior derecha del contenido aparecen controles rápidos para trabajar con los archivos:
+
+- **🔎 Buscador** → buscar archivos dentro del repositorio.  
+- **➕ Add file** → crear o subir archivos directamente desde GitHub.  
+- **💻 Code (botón verde)** → copiar la **URL del repositorio** (HTTPS o SSH) para clonar o declarar como remoto; también ofrece descarga ZIP.
+
+Esto es útil para obtener la URL que se usa en `git clone` o `git remote add`.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_9.png" width="300"></img>
+</p>
+
+### 📊 Panel lateral derecho: stats y descripción
+En la columna derecha GitHub muestra información resumida del proyecto:
+
+- **Descripción** del repositorio.  
+- **Actividad reciente** (commits, PRs, issues).  
+- **⭐ Estrellas**, **🍴 Forks**, **👀 Views**.  
+- **Releases** y **Packages** vinculados.
+
+Estos datos permiten evaluar rápidamente la salud y popularidad del proyecto.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_10.png" width="300"></img>
+</p>
+
+### 📁 Explorador de archivos y cabecera del contenido
+En el panel central se visualiza la **estructura del proyecto** (carpetas y archivos). En la cabecera del recuadro se muestra información clave sobre el último commit:
+
+- **Autor del último commit (HEAD)**  
+- **Mensaje del último commit**  
+- **SHA corto del commit**  
+- **Última fecha de actualización**  
+- **Número total de commits**
+
+Al hacer clic en estos elementos se puede navegar al historial completo y ver los detalles/versiones anteriores de cada archivo.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_11.png" width="300"></img>
+</p>
+
+### 📘 README renderizado
+En la parte inferior de la página GitHub renderiza el **`README.md`** del repositorio, mostrando su contenido con formato (Markdown).  
+Este archivo suele contener:
+
+- Descripción del proyecto ✅  
+- Instrucciones de instalación y uso 🛠️  
+- Capturas, ejemplos y documentación 📷📚  
+- Licencia y notas legales 📜
+
+El README es la **tarjeta de presentación** del proyecto en GitHub.
+
+<br>
+<p align="center">
+  <img src="assets/images/git_remote_origin/img_12.png" width="300"></img>
+</p>
+
+> 💡 **Tip:** mantener el `README.md` actualizado y bien estructurado ayuda mucho a que otros entiendan y colaboren en el proyecto rápidamente.
