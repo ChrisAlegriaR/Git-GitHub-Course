@@ -794,8 +794,8 @@ El comando **`git merge`** es uno de los más importantes dentro del flujo de tr
    Una vez que se está en la rama principal, se procede a realizar la integración de cambios mediante: `git merge nombreRama`. Este comando toma todos los cambios registrados en **nombreRama** y los fusiona con los de la rama principal. Después de ejecutarlo, Git mostrará en consola una serie de líneas que indican cuáles archivos cambiaron, cuántas inserciones o eliminaciones se realizaron y cómo se integró el contenido entre ambas ramas. Estas líneas funcionan como un reporte detallado del proceso de fusión.
 
 ## 📝 Explicación detallada línea por línea del resultado
+Ahora bien al ejecutar dicho comando nos arrojara un par de lineas de codigo las cuales se explicancion es:
 
-Ahora bien al ejecutar dicho comando nos arrojara un par de lineas de cosdigo las cuales se explicancion es:
 ### `Updating 6c2f8f7..442442f`
 Esta línea indica que Git está **actualizando la rama actual** usando los cambios provenientes de otra rama.  
 Los valores `6c2f8f7` y `442442f` representan los **hashes internos** de Git:
@@ -1382,3 +1382,174 @@ El README es la **tarjeta de presentación** del proyecto en GitHub.
 > 💡 **Tip:** mantener el `README.md` actualizado y bien estructurado ayuda mucho a que otros entiendan y colaboren en el proyecto rápidamente.
 
 # ⬇️ Git Push & Pull
+## 🚀 Git Push
+Imaginemos que se trabaja en un proyecto con otras personas y cada quien tiene una **copia local** del código. Cada vez que se hacen cambios en la máquina local, esos cambios **no se comparten automáticamente** con el equipo. Para que todos vean y usen los cambios hechos localmente, es necesario **subirlos al repositorio remoto**: eso es justo lo que hace **`git push`**.
+
+**`git push`** toma los commits que están en la rama local y los **envía** al repositorio remoto (por ejemplo GitHub). Es como presionar un botón para **compartir** lo que ya fue guardado (commiteado) localmente con el resto del equipo.
+
+> 💡 **Tip:** `git push` **no** crea commits ni modifica el historial local: solo **envía** lo que ya existe en la máquina local al remoto.
+
+### ✅ Requisitos antes de hacer push
+- El proyecto ya debe estar **inicializado** con `git init`.  
+- Debe existir **al menos un commit** local (sin commits no hay nada que subir).  
+- El repositorio local debe estar **vinculado** a un remoto (`git remote add origin <url>`).  
+- Estar en la **rama** que se desea subir (por ejemplo `main` o `master`).
+
+### ¿Cómo funciona en la práctica?
+Normalmente, para el primer push hacia el remoto se usa: `git origin main`
+
+- **`origin`** es el **alias** del remoto (nombre corto que apunta a la URL del repositorio remoto).  
+- **`main`** (o `master`) es el nombre de la rama local que se está subiendo.
+
+Un uso común para establecer la rama local para que *rastreé* la remota es: `git push -u origin main`
+
+El parámetro `-u` (upstream) configura que la rama `main` local **rastreará** `origin/main`, de modo que en adelante solo será necesario `git push` o `git pull` sin especificar `origin main`. Pero por defecto el uso de solamente `git push origin main` ya rastrea al repositorio remoto.
+
+> ⚠️ **OJO:** Puede haber ocasiones en las que se genere un **pequeño error** al intentar subir nuestra rama `main` por primera vez.  
+> Esto sucede mucho cuando el repositorio fue creado recientemente y **la rama local tiene otro nombre** (por ejemplo `master` o `main` en distinto casing). El error que suele aparecer es el siguiente:
+
+> ```bash
+>chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/proyecto-ejemplo (master)
+>$ git push -u origin main
+>error: src refspec main does not match any
+>error: failed to push some refs to 'https://github.com/ChrisAlegriaR/testGitPushPull.git'
+> ```
+> 
+> Este error significa que **Git no encontró ninguna rama llamada `main` en tu repositorio local**, por lo que **no puede subir algo que no existe**. Esto ocurre porque, dependiendo de la versión de Git, la configuración del sistema o la plantilla del proyecto, Git puede crear la rama inicial con nombres como:
+
+>- `master`  
+>- `Main` (diferente por mayúscula)  
+>- `main`  
+>- o incluso otra rama si se creó manualmente
+
+>Como queremos trabajar con la convención moderna (usar **`main`** como rama principal), lo que debemos hacer es **renombrar la rama actual** a `main` usando: `git branch -M main`.
+
+>### 🧠 ¿Qué significa `-M`?
+>La bandera **`-M`** significa **"move/rename forcé"** (mover/renombrar de forma forzada).  
+Esto quiere decir que:
+
+>- Si la rama ya existiera con ese nombre, **forzará el cambio**.  
+>- Si la rama anterior tenía otro nombre (`master`, `dev`, etc.), se convertirá en **`main` inmediatamente**.  
+>- No importa cuál era el nombre original: lo reemplaza sin pedir confirmación.
+
+# 🔄 Git Pull
+Imaginemos que estamos trabajando en un proyecto con otras personas, y todos usan una **carpeta compartida en línea** para guardar el código del proyecto (el repositorio remoto).  Cada vez que alguien más hace cambios y los sube a esa carpeta, **tu copia local NO se actualiza automáticamente**. Para obtener esos cambios más recientes y sincronizarlos con tu computadora, usamos: `git pull`.  Este comando le dice a Git: *“Ve al repositorio remoto, busca los últimos cambios que otros subieron y tráelos a mi copia local.”*
+
+> 💡 **`git pull` = traer a tu computadora los cambios más recientes del repositorio remoto. Te mantiene actualizado con el equipo y con la última versión del proyecto.**
+
+## 🧩 Requisitos para usar `git pull`
+Para que Git pueda descargar los cambios, deben cumplirse estas condiciones:
+
+1. 🔗 El proyecto local **debe estar vinculado** con el remoto (con `git remote add origin <url>`).  
+2. 📌 Debe existir **contenido en el repositorio remoto**.  
+3. 🔄 Debe haber **cambios en remoto que no se tengan en local**.  
+
+Cuando esto ocurre, `git pull` descargará lo que falta desde la nube y lo integrará en el proyecto local.
+
+> 🎯 **Git Pull es lo contrario de Git Push:**  
+> - `git push` → envía cambios **de local → remoto**  
+> - `git pull` → trae cambios **de remoto → local**
+
+La cual una vez realizado y ejecutado dicho comando la consola nos arrojara el siguiente mensaje:
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/proyecto-ejemplo (main)
+$ git pull origin main
+From https://github.com/ChrisAlegriaR/testGitPushPull
+ * branch            main       -> FETCH_HEAD
+Updating dc14e18..ad3a29d
+Fast-forward
+ texto2.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 texto2.txt
+```
+
+## 📝 Explicación detallada línea por línea del resultado
+Ahora bien al ejecutar dicho comando nos arrojara un par de lineas de codigo las cuales se explicancion es:
+
+### `From https://github.com/ChrisAlegriaR/testGitPushPull`
+Indica la **URL del remoto** del cual Git descargó (fetched) la información.  
+Es la fuente de donde vinieron los objetos/commits que se trajeron al repositorio local.
+
+### `* branch            main       -> FETCH_HEAD`
+Significa que se **obtuvo la rama remota `main`** y se guardó temporalmente en una referencia llamada **`FETCH_HEAD`**.  
+- `* branch main` → rama remota consultada.  
+- `-> FETCH_HEAD` → Git coloca la punta de esa rama en `FETCH_HEAD` para uso inmediato (por ejemplo para un `merge` o `fast-forward`).  
+`FETCH_HEAD` es una referencia temporal que contiene el commit más reciente traído por el `fetch` dentro del flujo de `pull`.
+
+### `Updating dc14e18..ad3a29d`
+Muestra que la rama local **se actualizará** desde el commit con hash **`dc14e18`** hasta el commit **`ad3a29d`**.  
+En otras palabras: *antes del pull* el HEAD estaba en `dc14e18`; *después del pull* estará en `ad3a29d`.  
+Esto permite ver qué rango de commits se aplicaron a la rama local.
+
+### `Fast-forward`
+Indica que Git realizó un **merge tipo fast-forward**: la rama local avanzó directamente hasta el nuevo commit remoto sin necesidad de crear un commit de fusión ni resolver conflictos.  
+Condiciones del fast-forward:
+- La rama local no tenía commits divergentes respecto al remoto; solo quedó “al día” moviendo el puntero.
+- Es la fusión más sencilla: no combina cambios conflictivos, simplemente avanza la referencia.
+
+### `texto2.txt | 1 +`
+Explica qué cambios afectaron a archivos individuales durante la actualización:
+- **`texto2.txt`** → archivo afectado.  
+- **`| 1`** → número total de líneas involucradas en el diff para ese archivo (en este caso 1 línea diferente).  
+- **`+`** → indica que la línea fue **agregada** (inserción). Si hubiera `-` o combinaciones como `+--` mostraría inserciones y eliminaciones.
+
+### `1 file changed, 1 insertion(+)`
+Resumen global de los cambios aplicados en la fusión / fast-forward:
+- **`1 file changed`** → se modificó (o añadió) 1 archivo en total.  
+- **`1 insertion(+)`** → hubo 1 línea **insertada** entre todos los archivos afectados.  
+(Nota: las eliminaciones se mostrarían como `X deletion(-)` si las hubo).
+
+### `create mode 100644 texto2.txt`
+Indica que **se creó un nuevo archivo** en el repositorio como parte de la actualización: `texto2.txt`.  
+- **`create mode`** → acción: creación de archivo.  
+- **`100644`** → permisos del archivo (metadata POSIX típica para archivos de texto: lectura/escritura para propietario y solo lectura para grupo/otros).  
+En resumen: la rama remota traía un archivo nuevo y, al hacer pull, Git lo añadió con esos permisos.
+
+## ✅ Resumen rápido
+- La salida empieza mostrando **de dónde** vino la información (URL).  
+- Luego indica **qué rama remota** se descargó y se puso en `FETCH_HEAD`.  
+- `Updating old..new` muestra el **rango de commits** aplicado.  
+- `Fast-forward` significa que la rama local avanzó sin conflictos.  
+- Las siguientes líneas detallan **qué archivos** cambiaron, cuántas líneas se insertaron/eliminaron y si se crearon o eliminaron archivos, incluyendo permisos.
+
+> ⚠️ **OJO:** Puede haber ocasiones en las que se genere un **pequeño error** al intentar descargar nuestra rama `main` por primera vez.  
+> Esto sucede mucho cuando el repositorio fue creado recientemente y **la rama local no sabe de que rama remota descargar el contenido** (por ejemplo `master` o `main` en distinto casing). El error que suele aparecer es el siguiente:
+>
+>```bash
+>chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/proyecto-ejemplo (main)
+>$ git pull
+>remote: Enumerating objects: 4, done.
+>remote: Counting objects: 100% (4/4), done.
+>remote: Compressing objects: 100% (2/2), done.
+>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+>Unpacking objects: 100% (3/3), 943 bytes | 6.00 KiB/s, done.
+>From https://github.com/ChrisAlegriaR/testGitPushPull
+>   dc14e18..ad3a29d  main       -> origin/main
+>There is no tracking information for the current branch.
+>Please specify which branch you want to merge with.
+>See git-pull(1) for details.
+>
+>    git pull <remote> <branch>
+>
+>If you wish to set tracking information for this branch you can do so with:
+>
+>    git branch --set-upstream-to=origin/<branch> main
+>```
+>
+>## ❓ ¿Qué significa este error?
+>Este error aparece porque **la rama local (por ejemplo `main`) no sabe a qué rama remota debe conectarse** para descargar los cambios. En Git, esto se llama **upstream tracking** (rama de seguimiento). Es decir que la rama local no tiene configurado un “camino” hacia la rama remota correspondiente. Entonces no sabe de dónde bajar los cambios.
+>
+>Por ejemplo:  
+>- La rama local: `main`  
+>- La rama remota: `origin/main`  
+>
+>Si no se configuró el vínculo entre ambas, Git no puede hacer `pull` automáticamente. Por lo que para solucionar este error, simplemente hay que establecer el **tracking**(vínculo) entre la rama local y la rama remota usando `git branch --set-upstream-to=origin/main main`. Esto le dice a Git que a partir de ahora, la rama local `main` debe seguir a la rama remota `origin/main`. Otra forma de solucionarlo es ejecutar: `git push -u origin main`. 
+>
+>### ¿Qué significa?
+>
+>- **`origin`** → nombre del remoto (nombre que se le da a la url del proyecto)  
+>- **`main`** → nombre de la rama remota  
+>- **`-u` (o `--set-upstream`)** → establece el tracking automáticamente  
+>
+>Es decir, este comando descarga los cambios desde `origin/main` y además configura tu rama local para que a partir de ahora siga esa rama remota.
