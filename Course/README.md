@@ -783,8 +783,19 @@ El comando **`git checkout`** tiene **dos funciones principales**: **crear una n
    Your branch is up to date with 'origin/main'.
    ```
 
-## 🔀 Git Merge
+Además de crear y cambiar ramas, `git checkout` **permite situarse en un commit específico** escribiendo el **identificador (hash)** del commit. Por ejemplo, al ejecutar `git checkout <hash>` se colocará el repositorio en el estado exacto de ese commit.
 
+- **Efecto:**  
+  Al ejecutar `git checkout <hash>` se pasa a un estado llamado **detached HEAD**, lo que significa que **no se está en ninguna rama** sino directamente apuntando a un commit histórico. En este estado se puede inspeccionar el código, ejecutar pruebas o compilar exactamente como estaba en ese punto del tiempo.
+
+- **Precauciones importantes:**  
+  - En **detached HEAD** los cambios no se asocian automáticamente a una rama. Si se realizan modificaciones y se desea conservarlas, **se debe crear una rama** a partir de ese estado (`git switch -c nombreNuevaRama` o `git checkout -b nombreNuevaRama`) antes de perder la referencia; de lo contrario, esas modificaciones pueden perderse al cambiar de rama.  
+  - El uso de `git checkout <hash>` es principalmente **para inspección o recuperación rápida**. Para trabajar y mantener cambios suele ser mejor crear una rama desde ese commit y continuar el trabajo en la nueva rama.
+
+- **Alternativa moderna:**  
+  También existe la forma más explícita `git switch --detach <hash>`, que deja claro que se está entrando en un estado detached HEAD sin intención de mover una rama.
+
+## 🔀 Git Merge
 El comando **`git merge`** es uno de los más importantes dentro del flujo de trabajo en Git, ya que permite **unir los cambios de una rama secundaria con la rama principal**. En términos simples, este comando combina dos líneas de desarrollo diferentes para integrarlas en una sola versión final del proyecto. Para llevar a cabo un *merge*, se siguen los siguientes pasos:
 
 1. **Colocarse en la rama principal:**  
@@ -828,7 +839,6 @@ Esta línea indica otro archivo involucrado en la fusión.
 - Los símbolos `--` indican que **se eliminaron dos líneas**.
 
 En resumen: en este archivo **entró 1 línea nueva y salieron 2 líneas anteriores**.
-
 
 ### `2 files changed, 1 insertion(+)`
 Esta línea expresa un pequeño resumen de lo que se modificó durante la fusión:
@@ -1608,3 +1618,17 @@ cbddd34 Add: Section for Gi Remote in README
 e1d8e51 Update README.md
 ```
 
+> ⚠️ **OJO:** Cuando se quiere regresar a un commit específico normalmente se utiliza `git checkout` seguido del **hash** del commit. Sin embargo, cuando ese commit tiene un **tag asignado**, no es necesario escribir el hash completo. Git permite usar el **nombre del tag** directamente en lugar del hash, lo cual facilita mucho el proceso y evita errores al copiar o identificar hashes largos. Esto significa que, si un commit tiene un tag llamado `v1.0.0`, se puede volver a ese punto del historial simplemente usando: `git checkout v1.0.0`. Esta práctica es especialmente útil cuando se manejan versiones del proyecto, ya que los tags funcionan como puntos de referencia más claros y fáciles de recordar que un hash alfanumérico extenso.
+
+## 🔀 Git Switch
+El comando **`git switch`** se utiliza para **cambiar entre ramas locales** dentro de un repositorio Git. Su propósito es ofrecer una alternativa más clara, sencilla y segura a `git checkout`, ya que este último combina demasiadas funciones en un solo comando (cambiar de rama, crear ramas y hasta cambiar archivos), lo que puede generar confusión, especialmente para quienes están iniciando en Git. A diferencia de `git checkout`, cuando se usa `git switch` **Git no busca ramas en el repositorio remoto**, ni intenta crearlas automáticamente. Esto significa que **solo permite cambiar a ramas que existen en el entorno local**, lo que evita cambios inesperados o descargas no intencionadas desde el servidor remoto. Cuando se usa `git checkout`, si la rama no existe localmente, Git intenta encontrarla en el remoto y descargarla. Esto puede ser útil en algunos casos, pero también puede provocar comportamientos no deseados si no se sabe exactamente qué ramas existen localmente y cuáles no.  
+
+Con `git switch`, ese riesgo desaparece, ya que el comando **únicamente valida las ramas locales** y no toma decisiones adicionales por su cuenta. Para usar el comando, simplemente se escribe: `git switch nombreDeLaRama`. Si la rama existe en el entorno local, Git realizará el cambio inmediatamente. La consola mostrará un mensaje indicando que la operación se ejecutó correctamente, confirmando que ahora se está trabajando en la nueva rama seleccionada. Este enfoque hace que **`git switch` sea ideal cuando ya se tiene la rama en local y únicamente se desea mover entre ellas**, manteniendo un flujo de trabajo claro, sin interferencias con ramas remotas ni riesgo de crear ramas nuevas por accidente.
+
+> 💡 *`git switch` se introdujo para brindar mayor claridad y buenas prácticas al trabajar con ramas. Permite cambiar de manera segura entre las ramas locales del proyecto y evita acciones implícitas que `git checkout` podría ejecutar sin que el usuario lo note.*
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git switch ramaDePruebas
+Switched to branch 'ramaDePruebas'
+```
