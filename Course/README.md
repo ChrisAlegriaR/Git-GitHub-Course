@@ -1575,7 +1575,7 @@ Cuando se asigna un tag, Git no altera el proyecto ni genera nuevos commits. Ún
 ### 💻 Uso básico en código
 Para aplicar un tag sobre el **último commit de la rama actual**, se utiliza: ´git tag nombreEtiqueta´. El cual al ejecutar este comando, Git no muestra un mensaje explícito de confirmación, pero la etiqueta queda registrada en el historial. Para visualizarla se usa: ´git log´. Este comando mostrará algo similar a:
 
-´´´bash
+```bash
 chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
 $ git log --oneline
 daedf6a (HEAD -> main, tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git Pull Section
@@ -1588,12 +1588,12 @@ cbddd34 Add: Section for Gi Remote in README
 e1d8e51 Update README.md
 fe2cf97 Fix: Names In Assets
 40db8ba Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
-´´´
+```
 
 ### 🕒 Visualización de tags en commits anteriores
 Si después de crear un tag se continúan realizando otros commits, el comando `git log` mostrará en qué commit se aplicó la etiqueta, indicando visualmente que ese punto del historial fue marcado.
 
-´´´bash
+```bash
 chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
 $ git log --oneline
 e1321e6 (HEAD -> main) Add: Git Descriptions
@@ -1606,4 +1606,5 @@ daedf6a (tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git
 28ce1ed Update: Assets Filesa For Git Explication
 cbddd34 Add: Section for Gi Remote in README
 e1d8e51 Update README.md
-´´´
+```
+
