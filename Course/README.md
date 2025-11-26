@@ -1553,3 +1553,57 @@ En resumen: la rama remota traía un archivo nuevo y, al hacer pull, Git lo aña
 >- **`-u` (o `--set-upstream`)** → establece el tracking automáticamente  
 >
 >Es decir, este comando descarga los cambios desde `origin/main` y además configura tu rama local para que a partir de ahora siga esa rama remota.
+
+# 🔛 Git Tag & Switch
+## 🏷️ Git Tag
+El uso de `git tag` permite etiquetar commits como **commits importantes**, y esta funcionalidad es ampliamente utilizada para marcar versiones **estables**, **listas para producción** o **hitos relevantes** dentro del proyecto. Un **tag** actúa como un marcador que identifica un commit como una versión significativa dentro del desarrollo. Un tag puede utilizarse para indicar versiones como:
+- `v1.0.0`
+- `v2.3.1`
+- `release-2025`
+- `hotfix-01`
+
+De esta forma se facilita que otros desarrolladores sepan cuál es la versión estable o cuál commit corresponde a una entrega específica.
+
+### 🧩 ¿Qué representa realmente un tag?
+Cuando se asigna un tag, Git no altera el proyecto ni genera nuevos commits. Únicamente se registra un **nombre o etiqueta** que apunta a un commit ya existente. Esto resulta útil para:
+
+- Identificar versiones estables del proyecto.
+- Regresar fácilmente a un punto del historial.
+- Descargar versiones específicas desde plataformas como GitHub.
+- Marcar hitos del desarrollo.
+
+### 💻 Uso básico en código
+Para aplicar un tag sobre el **último commit de la rama actual**, se utiliza: ´git tag nombreEtiqueta´. El cual al ejecutar este comando, Git no muestra un mensaje explícito de confirmación, pero la etiqueta queda registrada en el historial. Para visualizarla se usa: ´git log´. Este comando mostrará algo similar a:
+
+´´´bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git log --oneline
+daedf6a (HEAD -> main, tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git Pull Section
+4e9c442 Add: Git Push And Git Pull Section
+06aa25e Enhance README with synchronization button details
+66ac03b Fix: Spelling And Improve Git Remote Documentation
+94a3524 Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+28ce1ed Update: Assets Filesa For Git Explication
+cbddd34 Add: Section for Gi Remote in README
+e1d8e51 Update README.md
+fe2cf97 Fix: Names In Assets
+40db8ba Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+´´´
+
+### 🕒 Visualización de tags en commits anteriores
+Si después de crear un tag se continúan realizando otros commits, el comando `git log` mostrará en qué commit se aplicó la etiqueta, indicando visualmente que ese punto del historial fue marcado.
+
+´´´bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git log --oneline
+e1321e6 (HEAD -> main) Add: Git Descriptions
+1a4fd7f Update: Spaces In Line
+daedf6a (tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git Pull Section
+4e9c442 Add: Git Push And Git Pull Section
+06aa25e Enhance README with synchronization button details
+66ac03b Fix: Spelling And Improve Git Remote Documentation
+94a3524 Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+28ce1ed Update: Assets Filesa For Git Explication
+cbddd34 Add: Section for Gi Remote in README
+e1d8e51 Update README.md
+´´´
