@@ -1632,4 +1632,65 @@ chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
 $ git switch ramaDePruebas
 Switched to branch 'ramaDePruebas'
 ```
-# 📱 Git Stage & Stage App
+# 📱 Git Stash & Stash Apply
+En ocasiones podemos estar trabajando en una funcionalidad o modificación dentro de nuestro proyecto, pero necesitamos **guardar esos cambios temporalmente sin hacer un commit**. Tal vez queremos cambiar de rama, actualizar nuestro repositorio, hacer un pull, o simplemente pausar nuestro trabajo sin registrarlo aún.  
+Para este tipo de situaciones existe **`git stash`**, una herramienta que nos permite **guardar todos los cambios actuales en un “almacenamiento temporal”** sin incluirlos en el historial del repositorio. Cuando ejecutamos `git stash`, Git toma **todos los archivos modificados, agregados o eliminados**, y los guarda en un **stash**, que funciona como un commit temporal **solo local**, es decir, **nadie del equipo podrá ver esos cambios**, incluso si hacemos un `git push` o un `git pull`. Cada stash se guarda con un identificador automático similar a: `stash@{0}`, `stash@{1}`, `stash@{2}` y así sucesivamente.
+
+Una vez que Git guarda el stash, **nuestro directorio de trabajo vuelve exactamente al estado del último commit**, dejando el proyecto limpio y listo para otras tareas. Podemos verificar todos los stashes almacenados mediante: `git stash list`. Este comando mostrará una lista completa de los “commits temporales” que Git mantiene en memoria local, ordenados desde el más reciente al más antiguo.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash list
+stash@{0}: WIP on ramaDePruebas: d58dc3a Add: Git Practices In Branch RamaDePruebas
+stash@{1}: WIP on ramaDePruebas: d58dc3a Add: Git Practices In Branch RamaDePruebas
+```
+
+## 🔄 Restaurar un Stash
+Cada stash es independiente y se puede restaurar en cualquier momento usando: `git stash apply nombreDelStash`. Esto tomará el stash especificado (por ejemplo `stash@{0}`) y **volverá a aplicar sus cambios sobre el código actual**, mostrando incluso las diferencias con el último commit, como si usáramos también un `git status`. Es importante tener en cuenta que si realizamos nuevos cambios después de haber creado o regresado a un stash, **esos cambios NO se guardarán en el stash anterior**. Cada "snapshot" debe crearse manualmente con un nuevo `git stash` si queremos guardar las modificaciones adicionales.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash apply stash@{0}
+On branch ramaDePruebas
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Course/texto.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+## 🔄 Volver al último commit sin aplicar un Stash
+Si queremos **descartar los cambios actuales y regresar al estado del último commit**, sin restaurar un stash, podemos usar: `git restore .` Este comando elimina los cambios del área de trabajo y restaura los archivos como estaban en el commit más reciente.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git restore .
+```
+
+## 🗑️ Eliminar Stashes
+Si deseamos borrar los stashes almacenados, existen dos opciones:
+
+- **Eliminar un stash específico:**  
+  `git stash drop nombreDelStash`. Esto borra únicamente el stash seleccionado.
+
+- **Eliminar todos los stashes:**  
+  `git stash clear`. Esta opción elimina **todos** los guardados temporales.
+
+En ambos casos, Git mostrará mensajes en la consola indicando que los cambios fueron eliminados correctamente y la lista de stashes actualizada.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash drop stash@{0}
+Dropped stash@{0} (de3cdf774229e461c015ec3083a7c3451031dc1c)
+
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash drop stash@{0}
+Dropped stash@{0} (de3cdf774229e461c015ec3083a7c3451031dc1c)
+```
+
+> 💡 *`git stash` es una herramienta ideal para pausar tu trabajo sin comprometer cambios en el historial, mantener tu entorno limpio y volver a tus avances en cualquier momento, de manera segura y totalmente local.*
