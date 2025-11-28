@@ -1694,3 +1694,75 @@ Dropped stash@{0} (de3cdf774229e461c015ec3083a7c3451031dc1c)
 ```
 
 > 💡 *`git stash` es una herramienta ideal para pausar tu trabajo sin comprometer cambios en el historial, mantener tu entorno limpio y volver a tus avances en cualquier momento, de manera segura y totalmente local.*
+
+# ⛔ Eliminación de Ramas
+La eliminación de ramas es una acción comúnmente realizada por el responsable del repositorio remoto o el líder de equipo, aunque **si trabajas solo también puedes eliminar ramas** en tu repositorio de GitHub. Antes de eliminar una rama es importante recordar que **siempre debe existir otra rama activa distinta a la que vas a borrar** (por ejemplo `main` o `develop`), porque Git no permite eliminar la rama en la que estás posicionado. Podemos eliminar ramas **localmente** o **en el remoto**. A continuación se explica cada caso con su comportamiento y recomendaciones.
+
+
+## 🧭 Eliminar una rama local
+Para eliminar una rama en tu repositorio local se usa: `git branch -d nombreRama`
+
+- `-d` significa **delete** y Git intentará borrar la rama _solo si_ sus cambios ya fueron fusionados (merged) en la rama actual o en otra rama de destino.  
+- Si la rama contiene cambios no fusionados, Git te impedirá borrarla con `-d` para evitar pérdida accidental de trabajo.  
+- Si estás seguro y quieres forzar la eliminación (eliminando los cambios no fusionados), puedes usar `git branch -D nombreRama` (mayúscula `-D`). **Ten cuidado**: esto puede hacer que pierdas commits que no estén en ninguna otra rama.
+
+**Requisito:** debes estar en otra rama distinta a la que borrar (por ejemplo, `git switch main` o `git switch develop`) antes de ejecutar el comando.
+
+Al ejecutarlo correctamente, la consola mostrará un mensaje confirmando que la rama fue eliminada localmente.
+
+---
+
+## 🌐 Eliminar una rama remota
+Para eliminar una rama en el repositorio remoto (por ejemplo en GitHub) se usa:
+
+`git push origin --delete nombreRama`
+
+Este comando envía una instrucción al remoto similar a cuando haces `git push origin nombreRama` (que sube una rama). La diferencia es que aquí se está pidiendo expresamente **eliminar** la rama en el servidor mediante la opción `--delete`. Al ejecutarlo, el remoto devolverá un mensaje confirmando que la rama fue borrada de forma remota.
+
+**Notas importantes:**
+- Necesitas permisos de escritura en el repositorio remoto para poder eliminar ramas allí.  
+- Borrar una rama remota afectará a todo el equipo: otros colaboradores ya no podrán recuperar esa rama desde el servidor (salvo si alguien la tiene todavía en local y la vuelve a subir).  
+- Si borraste una rama por error, se puede recuperar si alguien tiene esa rama localmente y la vuelve a `git push origin nombreRama`.
+
+---
+
+## ✅ Buenas prácticas y recomendaciones
+- Antes de borrar, verifica el estado con `git branch` (locales) y `git branch -r` (remotas) o `git fetch && git branch -r` para listar ramas remotas actualizadas.  
+- Asegúrate de que los cambios importantes estén fusionados o respaldados.  
+- Prefiere `-d` sobre `-D` para evitar pérdida accidental de trabajo.  
+- Comunica al equipo antes de eliminar ramas compartidas (especialmente ramas de trabajo o feature branches).
+
+---
+
+> ⚠️ **OJO:** No intentes eliminar la rama en la que estás trabajando; primero cámbiate a otra rama. Además, eliminar una rama remota requiere permisos en el servidor y puede afectar a tus compañeros: confirma que la rama ya no es necesaria o que su trabajo está fusionado antes de borrarla. Si por error borras una rama remota, aún puedes recuperarla si alguien del equipo la tiene en local y la vuelve a `git push origin nombreRama`.
+
+# ⛔ Eliminación de Ramas
+La eliminación de ramas es una acción común dentro de cualquier flujo de trabajo en Git. Generalmente, esta tarea suele ser realizada por el responsable del repositorio remoto o por el líder del equipo, especialmente cuando se manejan múltiples desarrolladores. Sin embargo, cuando se trabaja de manera individual, también es completamente válido administrar y eliminar las ramas que ya no se utilizan en GitHub.  
+Para poder realizar esta acción es necesario tener al menos **una rama alternativa distinta a la principal**, ya que Git no permite eliminar la rama donde se está trabajando actualmente. Además, es importante resaltar que la eliminación puede realizarse tanto **a nivel local** como **a nivel remoto**, y cada una tiene un propósito distinto dentro del mantenimiento del proyecto.
+
+## 🗑️ Eliminación de una rama local  
+Cuando se elimina una rama local, lo que se está haciendo es retirar del equipo la referencia a esa rama. Esto es útil cuando se ha terminado una funcionalidad, se ha fusionado correctamente y ya no se necesita mantener la rama en el entorno local.
+
+Para realizar esta acción se utiliza el siguiente comando: `git branch -d nombreDeLaRama` La opción `-d` proviene de *delete*, e indica a Git que debe eliminar la rama especificada. Es fundamental estar situado en una rama diferente a la que se desea eliminar, ya que Git no permite borrar la rama actual para evitar inconsistencias o pérdida de trabajo accidental. Una vez ejecutado el comando, Git mostrará un mensaje que confirma que la rama ha sido eliminada correctamente del entorno local. Este mensaje informa además cuál era el último commit asociado a esa rama antes de su eliminación.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git branch -d ramaDesarrollo
+Deleted branch ramaDesarrollo (was d58dc3a).
+```
+
+## 🌐 Eliminación de una rama remota  
+Eliminar una rama remota significa retirar la referencia directamente del repositorio alojado en GitHub. Esto es especialmente útil para mantener el repositorio organizado, evitando que ramas ya fusionadas, abandonadas o sin uso sigan apareciendo para otros colaboradores.
+
+Para llevar a cabo esta acción se utiliza:`git push origin --delete nombreDeLaRama`. Este comando funciona bajo la misma estructura que se utiliza cuando se envía una rama al repositorio remoto, es decir: `git push origin nombreDeLaRama`. La diferencia es que, en este caso, se utiliza la opción `--delete`, que indica de manera explícita que la operación no será un envío de actualizaciones, sino una solicitud al servidor remoto para que elimine la rama especificada. Una vez ejecutado el comando, Git mostrará un mensaje confirmando que la rama ha sido eliminada del repositorio remoto, dejando así limpia la lista de ramas disponibles.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDesarrollo)
+$ git push origin --delete ramaDesarrollo
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/ChrisAlegriaR/Git-GitHub-Course.git
+To https://github.com/ChrisAlegria/Git-GitHub-Course.git
+ - [deleted]         ramaDesarrollo
+```
+
+> 💡 *Eliminar ramas remotas es una buena práctica para mantener el repositorio organizado, evitar confusiones y garantizar que únicamente existan las ramas activas o relevantes para el proyecto.*  
