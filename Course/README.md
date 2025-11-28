@@ -783,8 +783,19 @@ El comando **`git checkout`** tiene **dos funciones principales**: **crear una n
    Your branch is up to date with 'origin/main'.
    ```
 
-## 🔀 Git Merge
+Además de crear y cambiar ramas, `git checkout` **permite situarse en un commit específico** escribiendo el **identificador (hash)** del commit. Por ejemplo, al ejecutar `git checkout <hash>` se colocará el repositorio en el estado exacto de ese commit.
 
+- **Efecto:**  
+  Al ejecutar `git checkout <hash>` se pasa a un estado llamado **detached HEAD**, lo que significa que **no se está en ninguna rama** sino directamente apuntando a un commit histórico. En este estado se puede inspeccionar el código, ejecutar pruebas o compilar exactamente como estaba en ese punto del tiempo.
+
+- **Precauciones importantes:**  
+  - En **detached HEAD** los cambios no se asocian automáticamente a una rama. Si se realizan modificaciones y se desea conservarlas, **se debe crear una rama** a partir de ese estado (`git switch -c nombreNuevaRama` o `git checkout -b nombreNuevaRama`) antes de perder la referencia; de lo contrario, esas modificaciones pueden perderse al cambiar de rama.  
+  - El uso de `git checkout <hash>` es principalmente **para inspección o recuperación rápida**. Para trabajar y mantener cambios suele ser mejor crear una rama desde ese commit y continuar el trabajo en la nueva rama.
+
+- **Alternativa moderna:**  
+  También existe la forma más explícita `git switch --detach <hash>`, que deja claro que se está entrando en un estado detached HEAD sin intención de mover una rama.
+
+## 🔀 Git Merge
 El comando **`git merge`** es uno de los más importantes dentro del flujo de trabajo en Git, ya que permite **unir los cambios de una rama secundaria con la rama principal**. En términos simples, este comando combina dos líneas de desarrollo diferentes para integrarlas en una sola versión final del proyecto. Para llevar a cabo un *merge*, se siguen los siguientes pasos:
 
 1. **Colocarse en la rama principal:**  
@@ -828,7 +839,6 @@ Esta línea indica otro archivo involucrado en la fusión.
 - Los símbolos `--` indican que **se eliminaron dos líneas**.
 
 En resumen: en este archivo **entró 1 línea nueva y salieron 2 líneas anteriores**.
-
 
 ### `2 files changed, 1 insertion(+)`
 Esta línea expresa un pequeño resumen de lo que se modificó durante la fusión:
@@ -1553,3 +1563,134 @@ En resumen: la rama remota traía un archivo nuevo y, al hacer pull, Git lo aña
 >- **`-u` (o `--set-upstream`)** → establece el tracking automáticamente  
 >
 >Es decir, este comando descarga los cambios desde `origin/main` y además configura tu rama local para que a partir de ahora siga esa rama remota.
+
+# 🔛 Git Tag & Switch
+## 🏷️ Git Tag
+El uso de `git tag` permite etiquetar commits como **commits importantes**, y esta funcionalidad es ampliamente utilizada para marcar versiones **estables**, **listas para producción** o **hitos relevantes** dentro del proyecto. Un **tag** actúa como un marcador que identifica un commit como una versión significativa dentro del desarrollo. Un tag puede utilizarse para indicar versiones como:
+- `v1.0.0`
+- `v2.3.1`
+- `release-2025`
+- `hotfix-01`
+
+De esta forma se facilita que otros desarrolladores sepan cuál es la versión estable o cuál commit corresponde a una entrega específica.
+
+### 🧩 ¿Qué representa realmente un tag?
+Cuando se asigna un tag, Git no altera el proyecto ni genera nuevos commits. Únicamente se registra un **nombre o etiqueta** que apunta a un commit ya existente. Esto resulta útil para:
+
+- Identificar versiones estables del proyecto.
+- Regresar fácilmente a un punto del historial.
+- Descargar versiones específicas desde plataformas como GitHub.
+- Marcar hitos del desarrollo.
+
+### 💻 Uso básico en código
+Para aplicar un tag sobre el **último commit de la rama actual**, se utiliza: ´git tag nombreEtiqueta´. El cual al ejecutar este comando, Git no muestra un mensaje explícito de confirmación, pero la etiqueta queda registrada en el historial. Para visualizarla se usa: ´git log´. Este comando mostrará algo similar a:
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git log --oneline
+daedf6a (HEAD -> main, tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git Pull Section
+4e9c442 Add: Git Push And Git Pull Section
+06aa25e Enhance README with synchronization button details
+66ac03b Fix: Spelling And Improve Git Remote Documentation
+94a3524 Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+28ce1ed Update: Assets Filesa For Git Explication
+cbddd34 Add: Section for Gi Remote in README
+e1d8e51 Update README.md
+fe2cf97 Fix: Names In Assets
+40db8ba Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+```
+
+### 🕒 Visualización de tags en commits anteriores
+Si después de crear un tag se continúan realizando otros commits, el comando `git log` mostrará en qué commit se aplicó la etiqueta, indicando visualmente que ese punto del historial fue marcado.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git log --oneline
+e1321e6 (HEAD -> main) Add: Git Descriptions
+1a4fd7f Update: Spaces In Line
+daedf6a (tag: status, tag: etiquetaPrueba, origin/main) Finished: Git Push & Git Pull Section
+4e9c442 Add: Git Push And Git Pull Section
+06aa25e Enhance README with synchronization button details
+66ac03b Fix: Spelling And Improve Git Remote Documentation
+94a3524 Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course
+28ce1ed Update: Assets Filesa For Git Explication
+cbddd34 Add: Section for Gi Remote in README
+e1d8e51 Update README.md
+```
+
+> ⚠️ **OJO:** Cuando se quiere regresar a un commit específico normalmente se utiliza `git checkout` seguido del **hash** del commit. Sin embargo, cuando ese commit tiene un **tag asignado**, no es necesario escribir el hash completo. Git permite usar el **nombre del tag** directamente en lugar del hash, lo cual facilita mucho el proceso y evita errores al copiar o identificar hashes largos. Esto significa que, si un commit tiene un tag llamado `v1.0.0`, se puede volver a ese punto del historial simplemente usando: `git checkout v1.0.0`. Esta práctica es especialmente útil cuando se manejan versiones del proyecto, ya que los tags funcionan como puntos de referencia más claros y fáciles de recordar que un hash alfanumérico extenso.
+
+## 🔀 Git Switch
+El comando **`git switch`** se utiliza para **cambiar entre ramas locales** dentro de un repositorio Git. Su propósito es ofrecer una alternativa más clara, sencilla y segura a `git checkout`, ya que este último combina demasiadas funciones en un solo comando (cambiar de rama, crear ramas y hasta cambiar archivos), lo que puede generar confusión, especialmente para quienes están iniciando en Git. A diferencia de `git checkout`, cuando se usa `git switch` **Git no busca ramas en el repositorio remoto**, ni intenta crearlas automáticamente. Esto significa que **solo permite cambiar a ramas que existen en el entorno local**, lo que evita cambios inesperados o descargas no intencionadas desde el servidor remoto. Cuando se usa `git checkout`, si la rama no existe localmente, Git intenta encontrarla en el remoto y descargarla. Esto puede ser útil en algunos casos, pero también puede provocar comportamientos no deseados si no se sabe exactamente qué ramas existen localmente y cuáles no.  
+
+Con `git switch`, ese riesgo desaparece, ya que el comando **únicamente valida las ramas locales** y no toma decisiones adicionales por su cuenta. Para usar el comando, simplemente se escribe: `git switch nombreDeLaRama`. Si la rama existe en el entorno local, Git realizará el cambio inmediatamente. La consola mostrará un mensaje indicando que la operación se ejecutó correctamente, confirmando que ahora se está trabajando en la nueva rama seleccionada. Este enfoque hace que **`git switch` sea ideal cuando ya se tiene la rama en local y únicamente se desea mover entre ellas**, manteniendo un flujo de trabajo claro, sin interferencias con ramas remotas ni riesgo de crear ramas nuevas por accidente.
+
+> 💡 *`git switch` se introdujo para brindar mayor claridad y buenas prácticas al trabajar con ramas. Permite cambiar de manera segura entre las ramas locales del proyecto y evita acciones implícitas que `git checkout` podría ejecutar sin que el usuario lo note.*
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (main)
+$ git switch ramaDePruebas
+Switched to branch 'ramaDePruebas'
+```
+# 📱 Git Stash & Stash Apply
+En ocasiones podemos estar trabajando en una funcionalidad o modificación dentro de nuestro proyecto, pero necesitamos **guardar esos cambios temporalmente sin hacer un commit**. Tal vez queremos cambiar de rama, actualizar nuestro repositorio, hacer un pull, o simplemente pausar nuestro trabajo sin registrarlo aún.  
+Para este tipo de situaciones existe **`git stash`**, una herramienta que nos permite **guardar todos los cambios actuales en un “almacenamiento temporal”** sin incluirlos en el historial del repositorio. Cuando ejecutamos `git stash`, Git toma **todos los archivos modificados, agregados o eliminados**, y los guarda en un **stash**, que funciona como un commit temporal **solo local**, es decir, **nadie del equipo podrá ver esos cambios**, incluso si hacemos un `git push` o un `git pull`. Cada stash se guarda con un identificador automático similar a: `stash@{0}`, `stash@{1}`, `stash@{2}` y así sucesivamente.
+
+Una vez que Git guarda el stash, **nuestro directorio de trabajo vuelve exactamente al estado del último commit**, dejando el proyecto limpio y listo para otras tareas. Podemos verificar todos los stashes almacenados mediante: `git stash list`. Este comando mostrará una lista completa de los “commits temporales” que Git mantiene en memoria local, ordenados desde el más reciente al más antiguo.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash list
+stash@{0}: WIP on ramaDePruebas: d58dc3a Add: Git Practices In Branch RamaDePruebas
+stash@{1}: WIP on ramaDePruebas: d58dc3a Add: Git Practices In Branch RamaDePruebas
+```
+
+## 🔄 Restaurar un Stash
+Cada stash es independiente y se puede restaurar en cualquier momento usando: `git stash apply nombreDelStash`. Esto tomará el stash especificado (por ejemplo `stash@{0}`) y **volverá a aplicar sus cambios sobre el código actual**, mostrando incluso las diferencias con el último commit, como si usáramos también un `git status`. Es importante tener en cuenta que si realizamos nuevos cambios después de haber creado o regresado a un stash, **esos cambios NO se guardarán en el stash anterior**. Cada "snapshot" debe crearse manualmente con un nuevo `git stash` si queremos guardar las modificaciones adicionales.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash apply stash@{0}
+On branch ramaDePruebas
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Course/texto.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+## 🔄 Volver al último commit sin aplicar un Stash
+Si queremos **descartar los cambios actuales y regresar al estado del último commit**, sin restaurar un stash, podemos usar: `git restore .` Este comando elimina los cambios del área de trabajo y restaura los archivos como estaban en el commit más reciente.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git restore .
+```
+
+## 🗑️ Eliminar Stashes
+Si deseamos borrar los stashes almacenados, existen dos opciones:
+
+- **Eliminar un stash específico:**  
+  `git stash drop nombreDelStash`. Esto borra únicamente el stash seleccionado.
+
+- **Eliminar todos los stashes:**  
+  `git stash clear`. Esta opción elimina **todos** los guardados temporales.
+
+En ambos casos, Git mostrará mensajes en la consola indicando que los cambios fueron eliminados correctamente y la lista de stashes actualizada.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash drop stash@{0}
+Dropped stash@{0} (de3cdf774229e461c015ec3083a7c3451031dc1c)
+
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/git-github-course (ramaDePruebas)
+$ git stash drop stash@{0}
+Dropped stash@{0} (de3cdf774229e461c015ec3083a7c3451031dc1c)
+```
+
+> 💡 *`git stash` es una herramienta ideal para pausar tu trabajo sin comprometer cambios en el historial, mantener tu entorno limpio y volver a tus avances en cualquier momento, de manera segura y totalmente local.*
