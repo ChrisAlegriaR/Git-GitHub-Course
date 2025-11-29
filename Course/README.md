@@ -1742,4 +1742,58 @@ To https://github.com/ChrisAlegria/Git-GitHub-Course.git
 
 > ⚠️ **OJO:** No intentes eliminar la rama en la que estás trabajando; primero cámbiate a otra rama. Además, eliminar una rama remota requiere permisos en el servidor y puede afectar a tus compañeros: confirma que la rama ya no es necesaria o que su trabajo está fusionado antes de borrarla. Si por error borras una rama remota, aún puedes recuperarla si alguien del equipo la tiene en local y la vuelve a `git push origin nombreRama`.
 
-> 💡 *Eliminar ramas remotas es una buena práctica para mantener el repositorio organizado, evitar confusiones y garantizar que únicamente existan las ramas activas o relevantes para el proyecto.*  
+> 💡 *Eliminar ramas remotas es una buena práctica para mantener el repositorio organizado, evitar confusiones y garantizar que únicamente existan las ramas activas o relevantes para el proyecto.*
+
+# 📖 Git Fetch
+El comando **`git fetch`** permite descargar desde el repositorio remoto **el historial completo de cambios**, es decir, toda la información relacionada con los commits más recientes, las actualizaciones de las ramas y cualquier modificación registrada en el servidor. A diferencia de `git pull`, que además de descargar los cambios también los **fusiona** de inmediato con la rama local, `git fetch` únicamente trae la información, **sin aplicarla aún**. Esto brinda mayor control, ya que permite revisar qué ha cambiado antes de integrar dichas modificaciones en el entorno de trabajo. Cuando se ejecuta este comando, Git mostrará un resumen del proceso indicando que los objetos fueron descargados correctamente desde el repositorio remoto. Esto incluye el conteo de objetos, su empaquetado y la actualización de las referencias remotas.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course (main)
+$ git fetch
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (1/1), 834 bytes | 6.00 KiB/s, done.
+From https://github.com/ChrisAlegria/Git-GitHub-Course
+   db55059..3f85e9b  main       -> origin/main
+```
+
+## 🔍 Visualización del historial con `git log --oneline --all`
+Para poder observar de manera clara y ordenada el historial descargado mediante `git fetch`, se utiliza el comando: `git log --oneline --all`. Este comando combina dos parámetros muy útiles:
+
+- **`--oneline`**: muestra cada commit en una sola línea, facilitando su lectura.  
+- **`--all`**: permite visualizar todos los commits disponibles, incluyendo:
+  - Commits locales  
+  - Commits remotos  
+  - Ramas que aún no se han descargado por completo  
+  - Referencias adicionales como `HEAD`, `origin/main`, o cualquier otra rama remota  
+
+Gracias a esto, se obtiene una visión completa del estado del repositorio tanto local como remoto. En la salida del comando se puede identificar:
+
+- **HEAD → main**: Indica el commit actual en el que se está trabajando localmente.  
+- **origin/main**: Representa la punta de la rama remota `main`, y permite ver si existen commits que todavía no están integrados en local.  
+- **Otras ramas remotas o locales**: Permiten identificar cambios adicionales que no se han fusionado.
+
+Este historial es útil para:
+
+- Comparar el estado entre local y remoto  
+- Revisar cambios antes de integrarlos con `git pull`  
+- Validar si existen commits sin fusionar  
+- Identificar diferencias entre ramas y su avance  
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course (main)
+$ git log --oneline --all
+3f85e9b (origin/main) Delete: Spaces
+db55059 Uupdate: Info At Stash Section
+a27b8ca (ramaDesarrollo) Ad/Finished: Git Delete Branch Section
+2382f09 (HEAD -> main) Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course "Donwload Remote Files"
+a074819 Finished: Git Stash Section
+faa06c1 Add: Git Stage & Git Stage App Section
+5413f53 Finished: Git Tag & Git Switch
+2cc75f5 Fix: Bash Codes
+c189a1d Add: Git Tag & Git Switch Section
+e1321e6 (checkout) Add: Git Descriptions
+```
+
+> 💡 *Usar `git fetch` regularmente permite mantener el repositorio local actualizado sin comprometer el flujo de trabajo, ofreciendo total control sobre cuándo y cómo se integran los cambios remotos.*
