@@ -1799,5 +1799,51 @@ e1321e6 (checkout) Add: Git Descriptions
 > 💡 *Usar `git fetch` regularmente permite mantener el repositorio local actualizado sin comprometer el flujo de trabajo, ofreciendo total control sobre cuándo y cómo se integran los cambios remotos.*
 
 # 🔄 Git Reset
+Dentro de Git existen varias herramientas diseñadas para **deshacer cambios** y **restaurar estados anteriores** del proyecto. Estas herramientas permiten corregir errores, revertir modificaciones no deseadas o regresar a versiones previas del código. Entre estas herramientas encontramos **`git checkout`**, **`git reset`** y la variante más drástica, **`git reset --hard`**, cada una con un nivel distinto de impacto y alcance dentro del repositorio.
 
+# 🟦 Checkout  
+El comando **`git checkout nombreArchivo`** permite restaurar un archivo específico a la versión exacta que tenía en el **último commit** donde fue incluido.  
+Esto es especialmente útil cuando:
 
+- Se han realizado cambios incorrectos en un archivo.  
+- El contenido actual ya no es funcional o produjo errores.  
+- Se desea descartar por completo el trabajo reciente y volver al estado anterior confirmado en Git.  
+
+Imaginemos que un archivo fue modificado, pero después se detecta que esos cambios no sirven. En lugar de corregir manualmente o borrar líneas, se puede regresar el archivo a su forma previa con un solo comando. Una vez ejecutado, Git mostrará un mensaje indicando que el archivo fue actualizado y restaurado satisfactoriamente.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course ((2382f09...))
+$ git checkout Practices/texto.txt
+Updated 1 path from the index
+```
+
+# 🟦 Git Reset  
+El comando **`git reset`** permite **mover archivos de vuelta a un estado anterior dentro del área de trabajo o del área de stage**, dependiendo de cómo se utilice. No modifica el contenido de los archivos, sino su **estado dentro del flujo de trabajo**. Un escenario muy común es tener archivos en **stage** (preparados para un commit), pero querer sacarlos de ahí porque aún no están listos o porque se agregaron por error.  
+En ese caso, se utiliza: `git reset`
+
+Este comando regresa los archivos al estado anterior, es decir, los quita del stage y los vuelve a colocar en el área de trabajo, sin afectar su contenido. Después de ejecutarlo, Git mostrará un mensaje indicando que los archivos fueron retornados a su estado previo.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course ((2382f09...))
+$ git checkout Practices/texto.txt
+Updated 1 path from the index
+```
+
+# 🟦 Git Reset --hard  
+Para situaciones donde se necesita regresar no solo el estado de los archivos, sino también su **contenido**, se utiliza: `git reset --hard`. A diferencia del reset normal, esta variante sí modifica el contenido en el directorio de trabajo, restaurando los archivos exactamente a como estaban en el último commit confirmado. Es una herramienta mucho más fuerte, ya que puede descartar cambios recientes sin posibilidad de recuperarlos fácilmente.
+
+Este comando:
+
+- Regresa todos los archivos al contenido del último commit.  
+- Elimina cualquier cambio no confirmado.  
+- Restaura el estado del proyecto como si nada hubiera pasado.  
+
+Además, también se puede especificar un commit exacto para regresar a él: `git reset --hard numeroDelCommit`. Esto permite viajar a un punto específico de la historia del proyecto, devolviendo todo a esa versión concreta. Al ejecutarlo, Git mostrará un mensaje indicando que el repositorio volvió al commit seleccionado, restaurando completamente tanto el estado como el contenido de los archivos.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course ((2382f09...))
+$  git reset --hard
+HEAD is now at 2382f09 Merge branch 'main' of https://github.com/ChrisAlegria/Git-GitHub-Course "Donwload Remote Files"
+```
+
+> ⚠️ *Hay que usar `git reset --hard` con mucha precaución, ya que descarta definitivamente los cambios no confirmados y puede hacer que el trabajo reciente no sea recuperable.* 
