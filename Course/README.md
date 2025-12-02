@@ -1860,7 +1860,7 @@ La primera opción consiste en descargar directamente el proyecto como un archiv
 4. Esto descargará un archivo ZIP con **todo el contenido del proyecto**, que podrás descomprimir y utilizar en tu máquina local.
 
 <p align="center">
-	  <img src="assets/images/git_clone/img_1.png" width="300"></img>
+	  <img src="assets/images/git_clone/img_1.png" width="200"></img>
 </p>
 
 > 💡 *Esta opción es útil para obtener el proyecto rápidamente, pero no vincula automáticamente el proyecto local con el repositorio remoto, por lo que no podrás hacer `git push` o `git pull` directamente.*
