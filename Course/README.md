@@ -1847,3 +1847,45 @@ HEAD is now at 2382f09 Merge branch 'main' of https://github.com/ChrisAlegria/Gi
 ```
 
 > ⚠️ *Hay que usar `git reset --hard` con mucha precaución, ya que descarta definitivamente los cambios no confirmados y puede hacer que el trabajo reciente no sea recuperable.* 
+
+# 🧬 Git Clone
+En Git, a veces necesitamos tener un **proyecto local** que ya existe en un **repositorio remoto**, ya sea porque lo hemos borrado o porque estamos trabajando en un equipo nuevo sin copia del proyecto. Para lograr esto, existen principalmente **dos formas** de obtener el proyecto en nuestra máquina local: descargando un archivo ZIP o usando el comando `git clone`.
+
+## 📥 Descargar Proyecto Desde El Repositorio Remoto
+La primera opción consiste en descargar directamente el proyecto como un archivo comprimido. Para esto:
+
+1. Accede a tu repositorio remoto en GitHub.  
+2. Haz clic en el botón **`Code`**.  
+3. Selecciona la opción **`Download ZIP`**.  
+4. Esto descargará un archivo ZIP con **todo el contenido del proyecto**, que podrás descomprimir y utilizar en tu máquina local.
+
+<p align="center">
+	  <img src="assets/images/git_clone/img_1.png" width="300"></img>
+</p>
+
+> 💡 *Esta opción es útil para obtener el proyecto rápidamente, pero no vincula automáticamente el proyecto local con el repositorio remoto, por lo que no podrás hacer `git push` o `git pull` directamente.*
+
+## 🌐 Clonar el repositorio con Git (`git clone`)
+La segunda opción y la más completa es usar **`git clone`**, la cual crea una **copia local del repositorio remoto**, vinculada automáticamente al remoto. Para esto:
+
+1. Copia la **URL HTTP o SSH** del repositorio desde la misma sección de **`Code`** donde descargaste el ZIP.  
+2. Abre tu terminal y ubícate en la carpeta donde quieres clonar el proyecto.  
+3. Ejecuta el comando:`git clone <url-del-repositorio>`
+
+   - Git descargará **todos los archivos, commits y ramas** del repositorio remoto.  
+   - Creará una **carpeta con el nombre del proyecto** dentro del directorio actual, y colocará todo su contenido dentro.  
+   - Si es la primera vez que accedes al repositorio, Git te pedirá iniciar sesión para confirmar tu identidad. Esto solo se solicita **una vez**; después de clonar, la copia local estará vinculada al remoto automáticamente.  
+   - No es necesario usar `git remote add origin`, ya que `git clone` hace esta vinculación automáticamente.
+
+> 💡 *`git clone` es la forma recomendada cuando quieres trabajar con Git de manera completa, ya que mantiene el historial de commits y permite sincronizar fácilmente cambios entre local y remoto.*
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos
+$ git clone https://github.com/ChrisAlegriaR/testGitPushPull.git
+Cloning into 'testGitPushPull'...
+remote: Enumerating objects: 15, done.
+remote: Counting objects: 100% (15/15), done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 15 (delta 0), reused 12 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (15/15), done.
+```
