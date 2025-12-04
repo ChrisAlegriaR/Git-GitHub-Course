@@ -1935,7 +1935,7 @@ Estos marcadores te muestran exactamente **qué cambió cada persona** para que 
 7. **Verificar** con `git status` y `git log` que el merge quedó registrado correctamente.  
 
 <p align="center">
-	  <img src="assets/images/git_conflict/img_1.png" width="200"></img>
+	  <img src="assets/images/git_conflict/img_1.png" width="400"></img>
 </p>
 
 ## 🔁 Opciones avanzadas y mensajes útiles
