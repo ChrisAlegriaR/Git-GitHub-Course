@@ -1890,3 +1890,57 @@ remote: Total 15 (delta 0), reused 12 (delta 0), pack-reused 0 (from 0)
 Receiving objects: 100% (15/15), done.
 ```
 
+# 💡 Resolver un Conflicto
+Cuando trabajamos en equipo es habitual que dos o más personas modifiquen el **mismo archivo** y **las mismas líneas** casi al mismo tiempo. Al intentar fusionar (merge) esas ramas en la rama principal, Git detecta que no puede decidir qué versión conservar y **genera un conflicto de merge**.  
+Un conflicto **no rompe el repositorio**, pero sí requiere intervención humana para decidir la versión correcta del código antes de poder completar la fusión.
+
+```bash
+chris@LAPTOP-0DNMOIV6 MINGW64 /d/Trabajos/Cursos/Git-GitHub-Course (main)
+$ git merge ramaDesarrollo 
+Auto-merging Practices/texto.txt
+CONFLICT (content): Merge conflict in Practices/texto.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+## 🔎 ¿Cómo identifica Git un conflicto?
+- Git detecta conflicto cuando **dos commits diferentes modifican las mismas líneas** de un mismo archivo.  
+- Al hacer `git merge` la operación se detiene y Git marca los archivos en conflicto como **unmerged**.  
+- `git status` mostrará qué archivos necesitan resolución y te dirá que arregles los conflictos y luego confirmes (commit) los cambios.
+
+> 💡 *Los conflictos solo ocurren si los cambios afectan exactamente a las mismas líneas. Si las modificaciones fueron en líneas distintas, Git puede fusionarlas automáticamente.*
+
+## 🧭 ¿Qué verás en el archivo afectado?
+Cuando abres el archivo en el editor (por ejemplo Visual Studio Code) encontrarás marcadores que indican las versiones en conflicto:
+
+- `<<<<<<< HEAD` → la versión que está en tu rama actual (Current Change).  
+- `=======` → separador entre ambas versiones.  
+- `>>>>>>> nombreRama` → la versión que viene desde la rama que intentas fusionar (Incoming Change).
+
+Estos marcadores te muestran exactamente **qué cambió cada persona** para que puedas decidir cómo combinar o reemplazar el contenido.
+
+## 🛠️ Cómo resolver un conflicto (pasos recomendados)
+1. **Detectar los archivos en conflicto**  
+   - Revisa `git status` para identificar todos los archivos marcados como **unmerged**.  
+2. **Abrir los archivos en el editor**  
+   - VS Code mostrará los archivos con conflicto y una vista comparativa con opciones rápidas (botones).  
+3. **Elegir la estrategia de resolución** (una por archivo):
+   - **Accept Current Change** → conservar la versión de la rama donde estabas (HEAD).  
+   - **Accept Incoming Change** → conservar la versión que llegó desde la otra rama.  
+   - **Accept Both Changes** → conservar ambas versiones (útil si se pueden concatenar o combinar).  
+   - **Compare Changes / Open Merge Editor** → editar manualmente y construir la solución correcta línea por línea.  
+   - **Editar manualmente** → quitar los marcadores (`<<<<<<<`, `=======`, `>>>>>>>`) y dejar el contenido final deseado.  
+4. **Guardar los archivos** una vez resueltos.  
+5. **Agregar los archivos al stage** (`git add <archivo>`) para marcar el conflicto como resuelto.  
+6. **Finalizar el merge** con un commit que documente la resolución (p. ej. “Resolve merge conflict in X”).  
+7. **Verificar** con `git status` y `git log` que el merge quedó registrado correctamente.  
+
+<p align="center">
+	  <img src="assets/images/git_conflict/img_1.png" width="400"></img>
+</p>
+
+## 🔁 Opciones avanzadas y mensajes útiles
+- Si decides **cancelar el merge** y dejar todo como estaba antes de intentarlo, puedes usar `git merge --abort` (esto vuelve el repositorio al estado anterior al merge).  
+- Si solo quieres traer cambios remotos y resolver conflictos por rebase, otra estrategia es mantener las ramas actualizadas rebasando tu trabajo con `git rebase origin/main` antes de hacer el merge (esto reduce la probabilidad de conflictos, pero requiere cuidado).
+
+> 💡 *Resolver conflictos es parte normal del trabajo colaborativo. Con práctica y buenas prácticas de equipo, estos eventos serán cada vez menos frecuentes y más fáciles de manejar.*
+
