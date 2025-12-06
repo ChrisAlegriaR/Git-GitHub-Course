@@ -1957,52 +1957,52 @@ Para crear un fork:
 4. Al confirmar **Create fork**, GitHub creará una **copia exacta** del repositorio en tu cuenta. En la página del nuevo repo verás que indica claramente que fue *forkeado* desde el repo original (mostrará autor y repositorio fuente).
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_1.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_1.png" width="400"></img>
 </p>
 
 Una vez clickeado se nos redireccionará a una pestaña en la cual encontraremos un apartado que indicará que se está **creando una copia** (fork) del repositorio. Aquí se solicitará información opcional como el **nombre** del nuevo repositorio, su **descripción** y si solo se quiere copiar la rama principal (`main`). Estos campos vienen por defecto con los datos del repositorio original.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_2.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_2.png" width="400"></img>
 </p>
 
 Al pulsar **Create Fork**, se generará una copia exacta del proyecto en tu cuenta de GitHub. En la página principal de tu nuevo repositorio aparecerá una nota que indica que este repo fue forkeado desde el repo original, mostrando autor y nombre del repo fuente.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_3.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_3.png" width="400"></img>
 </p>
 
 ## 🔀 Pull Request (Solicitud de extracción)
 Para crear un **Pull Request** necesitas **hacer cambios** en la copia (fork) que acabas de crear —mínimo un commit— y luego solicitar al repositorio original que revise e integre tus cambios. Una vez que tengas commits en tu fork, en la página principal verás un aviso que indica la cantidad de commits en tu fork respecto al repositorio original, junto con botones como **Contribute** y **Sync Fork**.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_4.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_4.png" width="400"></img>
 </p>
 
 ### 🔁 Botón: Sync Fork
 El botón **Sync Fork** sirve para **sincronizar** tu fork con el repositorio original cuando este ha recibido nuevos cambios. Al presionarlo verás un resumen de diferencias y un botón para aplicar la sincronización, manteniendo tu fork actualizado.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_5.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_5.png" width="400"></img>
 </p>
 
 ### 🤝 Botón: Collaborate / Contribute
 El botón de **Collaborate / Contribute** (o **Compare & pull request**) inicia el flujo para abrir un PR. Al presionarlo verás una interfaz que resume los cambios y te permitirá preparar la solicitud hacia el repo original.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_6.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_6.png" width="400"></img>
 </p>
 
 Al abrir un Pull Request, se mostrará una ventana para completar **título** y **descripción**; aquí debes explicar claramente qué cambiaste y por qué sería valioso que se integre al proyecto original.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_7.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_7.png" width="400"></img>
 </p>
 
 Una vez enviada la PR, verás la vista de la solicitud, su estado y cualquier comentario que el propietario del repo original haga sobre ella.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_8.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_8.png" width="400"></img>
 </p>
 
 ## 🧾 Qué verá el propietario del repo original
@@ -2013,13 +2013,13 @@ Cuando alguien envía una PR al repo original:
 - Podrá comentar, pedir cambios, aceptar (merge) o cerrar la PR sin aplicarla.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_9.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_9.png" width="400"></img>
 </p>
 
 Al seleccionar una PR se abre una vista detallada donde es posible revisar los commits, los archivos modificados y dejar comentarios para el autor. Desde aquí se puede aceptar la PR (merge) o rechazarla.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_10.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_10.png" width="400"></img>
 </p>
 
 ## 🔧 Opciones al momento de aceptar una Pull Request
@@ -2043,7 +2043,7 @@ Cuando el propietario decide integrar los cambios, GitHub ofrece **tres formas**
   - Resultado: historial lineal sin commits de merge; útil para mantener un historial limpio y cronológico.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_11.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_11.png" width="400"></img>
 </p>
 
 > 📝 *La elección depende de la política del proyecto: algunos equipos prefieren todo el historial (`merge commit`), otros prefieren un historial compacto (`squash`) y otros buscan linealidad (`rebase`).*
@@ -2056,7 +2056,7 @@ Si el propietario decide **no aceptar** la PR, puede:
 - Sugerir cambios para que el autor los aplique y vuelva a abrir la PR.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_12.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_12.png" width="400"></img>
 </p>
 
 ## ⚠️ Conflictos y divergencias en Pull Requests
@@ -2067,7 +2067,7 @@ Es común que, mientras una PR está abierta, el repositorio original reciba nue
 - Cuando hay conflictos, en la interfaz de la PR aparecerá un aviso y un botón para **Resolve conflicts** o instrucciones para actualizar la rama.
 
 <p align="center">
-	  <img src="assets/images/git_fork_pull_request/img_13.png" width="400"></img>
+	  <img src="assets/images/fork_pull_request/img_13.png" width="400"></img>
 </p>
 
 > 💡 *Contribuir vía fork + pull request es la forma estándar de aportar a proyectos de código abierto. Haz aportes bien documentados, mantén tu historial limpio y prepárate a iterar según el feedback del equipo mantenedor.*
