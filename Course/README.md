@@ -2071,3 +2071,46 @@ Es común que, mientras una PR está abierta, el repositorio original reciba nue
 </p>
 
 > 💡 *Contribuir vía fork + pull request es la forma estándar de aportar a proyectos de código abierto. Haz aportes bien documentados, mantén tu historial limpio y prepárate a iterar según el feedback del equipo mantenedor.*
+
+# 📝 Markdown y el archivo README.md
+El nombre **Markdown** hace referencia a un tipo de archivo cuyo formato utiliza la extensión **.md**, similar a como los archivos de texto usan `.txt`. Los archivos `.md` cuentan con su **propio lenguaje de marcado**, el cual permite dar formato al texto de una manera sencilla, limpia y legible. En cierto modo, se podría comparar con HTML, ya que ambos permiten aplicar estructura y estilo al contenido; sin embargo, Markdown es más ligero y está pensado para ser rápido de leer y escribir.
+
+Dentro del contexto de Git y GitHub, es una práctica común que los proyectos incluyan un archivo llamado **README.md**. Su nombre proviene de “Read Me” (léeme), y su propósito es ofrecer una descripción clara del proyecto: qué hace, cómo instalarlo, cómo usarlo, notas importantes, capturas, etc. En GitHub, cuando un repositorio tiene un archivo `README.md`, este se muestra **automáticamente** en la parte inferior de la página principal del repositorio, justo debajo del listado de archivos y carpetas. GitHub interpreta el lenguaje Markdown y aplica los estilos correspondientes, mostrando un resultado limpio y visualmente agradable.
+
+<p align="center">
+	  <img src="assets/images/markdown/img_1.png" width="400"></img>
+</p>
+
+## ✨ Lenguaje Markdown: elementos básicos
+Como se mencionó anteriormente, los archivos `.md` utilizan una sintaxis especial para aplicar formato al texto. Estos son algunos de los elementos más usados:
+
+- `#` → Crea un **título principal** (*equivalente a h1*).
+- `##` → Crea un **subtítulo** (*equivalente a h2*).
+- `` ```bash `` → Permite declarar un bloque de código con resaltado de sintaxis.
+- `1.` → Crea una **lista numerada**.
+- `-` → Crea una lista con viñetas.
+- `**texto**` → Aplica **negritas**.
+- `*texto*` → Aplica *cursivas*.
+- `> texto` → Crea una **cita**.
+- `---` → Inserta una **línea divisoria**.
+
+Markdown permite escribir documentación clara sin necesidad de herramientas avanzadas o un editor especializado, y por eso se usa ampliamente en proyectos de software.
+
+## 🧾 Ejemplo pequeño de Markdown
+```md
+# Mi Proyecto
+
+Este es un proyecto de ejemplo escrito en **Markdown**.
+
+## Instalación
+1. Clonar el repositorio.
+2. Instalar dependencias.
+3. Ejecutar el proyecto.
+
+## Código de ejemplo
+
+```bash
+npm install
+npm start
+```.
+```
