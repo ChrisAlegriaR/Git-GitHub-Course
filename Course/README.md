@@ -1944,3 +1944,130 @@ Estos marcadores te muestran exactamente **qué cambió cada persona** para que 
 
 > 💡 *Resolver conflictos es parte normal del trabajo colaborativo. Con práctica y buenas prácticas de equipo, estos eventos serán cada vez menos frecuentes y más fáciles de manejar.*
 
+
+# 🥺 Fork & Pull Request
+**Fork** es la acción que permite crear una **copia personal** de un repositorio que **no es de tu propiedad**. Esto te da la libertad de experimentar, corregir o añadir funcionalidades sobre esa copia, y —si tus cambios son valiosos— solicitar al autor original que **incorpore tus aportes** al proyecto mediante un **Pull Request (PR)**. Esta dinámica es muy común en GitHub y en proyectos de código abierto: cualquiera puede proponer mejoras, pero la aceptación depende del/la mantenedor(a) del repositorio original.
+
+## 🍴 Fork
+Para crear un fork:
+
+1. Entra al repositorio **original** en GitHub (el que no es tuyo).  
+2. En la parte superior derecha encontrarás el botón **Fork** —haz clic en él.  
+3. GitHub te mostrará una pantalla donde configurar el nuevo repositorio (nombre, descripción y si deseas copiar solo la rama principal). Normalmente los valores vienen prellenados con los del repositorio original.  
+4. Al confirmar **Create fork**, GitHub creará una **copia exacta** del repositorio en tu cuenta. En la página del nuevo repo verás que indica claramente que fue *forkeado* desde el repo original (mostrará autor y repositorio fuente).
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_1.png" width="400"></img>
+</p>
+
+Una vez clickeado se nos redireccionará a una pestaña en la cual encontraremos un apartado que indicará que se está **creando una copia** (fork) del repositorio. Aquí se solicitará información opcional como el **nombre** del nuevo repositorio, su **descripción** y si solo se quiere copiar la rama principal (`main`). Estos campos vienen por defecto con los datos del repositorio original.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_2.png" width="400"></img>
+</p>
+
+Al pulsar **Create Fork**, se generará una copia exacta del proyecto en tu cuenta de GitHub. En la página principal de tu nuevo repositorio aparecerá una nota que indica que este repo fue forkeado desde el repo original, mostrando autor y nombre del repo fuente.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_3.png" width="400"></img>
+</p>
+
+## 🔀 Pull Request (Solicitud de extracción)
+Para crear un **Pull Request** necesitas **hacer cambios** en la copia (fork) que acabas de crear —mínimo un commit— y luego solicitar al repositorio original que revise e integre tus cambios. Una vez que tengas commits en tu fork, en la página principal verás un aviso que indica la cantidad de commits en tu fork respecto al repositorio original, junto con botones como **Contribute** y **Sync Fork**.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_4.png" width="400"></img>
+</p>
+
+### 🔁 Botón: Sync Fork
+El botón **Sync Fork** sirve para **sincronizar** tu fork con el repositorio original cuando este ha recibido nuevos cambios. Al presionarlo verás un resumen de diferencias y un botón para aplicar la sincronización, manteniendo tu fork actualizado.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_5.png" width="400"></img>
+</p>
+
+### 🤝 Botón: Collaborate / Contribute
+El botón de **Collaborate / Contribute** (o **Compare & pull request**) inicia el flujo para abrir un PR. Al presionarlo verás una interfaz que resume los cambios y te permitirá preparar la solicitud hacia el repo original.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_6.png" width="400"></img>
+</p>
+
+Al abrir un Pull Request, se mostrará una ventana para completar **título** y **descripción**; aquí debes explicar claramente qué cambiaste y por qué sería valioso que se integre al proyecto original.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_7.png" width="400"></img>
+</p>
+
+Una vez enviada la PR, verás la vista de la solicitud, su estado y cualquier comentario que el propietario del repo original haga sobre ella.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_8.png" width="400"></img>
+</p>
+
+## 🧾 Qué verá el propietario del repo original
+Cuando alguien envía una PR al repo original:
+
+- El propietario puede ver el listado de **Pull Requests** (pestaña *Pull requests*).  
+- Al abrir una PR verá el **título**, **descripción**, **autor**, commits incluidos, archivos modificados y un comparador con la versión original.  
+- Podrá comentar, pedir cambios, aceptar (merge) o cerrar la PR sin aplicarla.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_9.png" width="400"></img>
+</p>
+
+Al seleccionar una PR se abre una vista detallada donde es posible revisar los commits, los archivos modificados y dejar comentarios para el autor. Desde aquí se puede aceptar la PR (merge) o rechazarla.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_10.png" width="400"></img>
+</p>
+
+## 🔧 Opciones al momento de aceptar una Pull Request
+Cuando el propietario decide integrar los cambios, GitHub ofrece **tres formas** de aplicar la PR. Aquí explico qué hace cada una:
+
+- **Create a merge commit**  
+  - Crea un nuevo commit de merge que une la rama del contribuidor con la rama objetivo (por ejemplo `main`).  
+  - Conserva todo el historial intacto (los commits del contribuidor se mantienen tal cual).  
+  - Útil cuando se quiere preservar el contexto y la historia completa de los commits.  
+  - Resultado: un commit adicional que une ambas líneas de desarrollo.
+
+- **Squash and merge**  
+  - Toma todos los commits de la PR y los **combina en un único commit** que se añadirá a la rama objetivo.  
+  - Limpia el historial dejando una sola entrada por la contribución (ideal para PRs con muchos commits pequeños).  
+  - Permite escribir un mensaje de commit consolidado que resuma los cambios.  
+  - Resultado: historial más lineal y compacto, pero se pierde la granularidad de los commits originales.
+
+- **Rebase and merge**  
+  - Re-aplica (rebase) los commits de la PR sobre la punta de la rama objetivo y los integra sin crear un commit de merge.  
+  - Mantiene los commits individuales, pero los “mueve” para que aparezcan como si se hubieran creado después del último commit de la rama objetivo.  
+  - Resultado: historial lineal sin commits de merge; útil para mantener un historial limpio y cronológico.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_11.png" width="400"></img>
+</p>
+
+> 📝 *La elección depende de la política del proyecto: algunos equipos prefieren todo el historial (`merge commit`), otros prefieren un historial compacto (`squash`) y otros buscan linealidad (`rebase`).*
+
+## ❌ Rechazo o cierre de una Pull Request
+Si el propietario decide **no aceptar** la PR, puede:
+
+- Escribir comentarios explicando por qué no será aplicada.  
+- Cerrar la PR (Close) sin hacer merge.  
+- Sugerir cambios para que el autor los aplique y vuelva a abrir la PR.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_12.png" width="400"></img>
+</p>
+
+## ⚠️ Conflictos y divergencias en Pull Requests
+Es común que, mientras una PR está abierta, el repositorio original reciba nuevos cambios. Si la PR se creó sobre una **versión antigua** del proyecto, GitHub puede indicar **conflictos**. En ese caso:
+
+- El autor de la PR (o el mantenedor) deberá **actualizar** la rama de la PR (por ejemplo haciendo fetch + rebase o merge desde la rama principal actualizada).  
+- GitHub ofrece una interfaz para **resolver conflictos** en la web en algunos casos, o se puede resolver localmente y volver a pushear la rama.  
+- Cuando hay conflictos, en la interfaz de la PR aparecerá un aviso y un botón para **Resolve conflicts** o instrucciones para actualizar la rama.
+
+<p align="center">
+	  <img src="assets/images/fork_pull_request/img_13.png" width="400"></img>
+</p>
+
+> 💡 *Contribuir vía fork + pull request es la forma estándar de aportar a proyectos de código abierto. Haz aportes bien documentados, mantén tu historial limpio y prepárate a iterar según el feedback del equipo mantenedor.*
