@@ -1,4 +1,4 @@
-# 🐙 Git & GitHub Course  
+# 🐙 Git & GitHub Course
 
 ## 📖 Course, Branches and Project Description  
 This repository is composed of three parts:
@@ -60,3 +60,4 @@ All the content in this repository, both in the **branches**, **documentation**,
 
 ## 🔥 Developer  
 This project was developed by `©ChrisAlegria`. All rights reserved.
+
