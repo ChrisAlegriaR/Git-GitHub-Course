@@ -60,4 +60,3 @@ All the content in this repository, both in the **branches**, **documentation**,
 
 ## 🔥 Developer  
 This project was developed by `©ChrisAlegria`. All rights reserved.
-
